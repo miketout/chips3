@@ -31,6 +31,7 @@ LIBBITCOIN_CLI=libbitcoin_cli.a
 LIBBITCOIN_UTIL=libbitcoin_util.a
 LIBBITCOIN_CRYPTO=crypto/libbitcoin_crypto.a
 LIBBITCOINQT=qt/libbitcoinqt.a
+LIBVERUS_CRYPTO=crypto/libverus_crypto.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 LIBCRYPTOCONDITIONS=cryptoconditions/libcryptoconditions_core.la
 
@@ -54,6 +55,7 @@ $(LIBCRYPTOCONDITIONS): $(wildcard cryptoconditions/src/*) $(wildcard cryptocond
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES += \
   $(LIBBITCOIN_CRYPTO) \
+	$(LIBVERUS_CRYPTO) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_CONSENSUS) \
@@ -104,6 +106,9 @@ BITCOIN_CORE_H = \
   consensus/tx_verify.h \
   core_io.h \
   core_memusage.h \
+	crypto/haraka.h \
+  crypto/haraka_portable.h \
+  crypto/verus_hash.h \
   cuckoocache.h \
   fs.h \
   httprpc.h \
@@ -206,6 +211,10 @@ libbitcoin_server_a_SOURCES = \
   cc/betprotocol.cpp \
   chain.cpp \
   checkpoints.cpp \
+	crypto/haraka.h \
+  crypto/haraka_portable.h \
+  crypto/verus_hash.h \
+  crypto/verus_hash.cpp \
   consensus/tx_verify.cpp \
   httprpc.cpp \
   httpserver.cpp \
@@ -299,6 +308,15 @@ if USE_ASM
 crypto_libbitcoin_crypto_a_SOURCES += crypto/sha256_sse4.cpp
 endif
 
+# Verus hash specific library
+crypto_libverus_crypto_a_CPPFLAGS = -O3 -Wint-conversion -march=native -funroll-loops -fomit-frame-pointer -fPIC $(AM_CPPFLAGS)
+crypto_libverus_crypto_a_CXXFLAGS = -O3 -Wint-conversion -march=native -funroll-loops -fomit-frame-pointer -fPIC $(AM_CXXFLAGS)
+crypto_libverus_crypto_a_SOURCES = \
+  crypto/haraka.h \
+  crypto/haraka.c \
+  crypto/haraka_portable.h \
+  crypto/haraka_portable.c
+
 # consensus: shared between all executables that validate any consensus rules.
 libbitcoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -346,6 +364,10 @@ libbitcoin_common_a_SOURCES = \
   compressor.cpp \
   core_read.cpp \
   core_write.cpp \
+	crypto/haraka.h \
+  crypto/haraka_portable.h \
+  crypto/verus_hash.h \
+  crypto/verus_hash.cpp \
   key.cpp \
   key_io.cpp \
   keystore.cpp \
@@ -418,6 +440,7 @@ chipsd_LDADD = \
   $(LIBBITCOIN_ZMQ) \
   $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
+	$(LIBVERUS_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
@@ -440,7 +463,8 @@ chips_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO)
+  $(LIBBITCOIN_CRYPTO) \
+	$(LIBVERUS_CRYPTO)
 
 chips_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
@@ -461,6 +485,7 @@ chips_tx_LDADD = \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
+	$(LIBVERUS_CRYPTO) \
   $(LIBSECP256K1) \
   $(LIBCRYPTOCONDITIONS)
 
