@@ -21,6 +21,9 @@ class CBlockHeader
 {
 public:
     // header
+    static uint256 (CBlockHeader::*hashFunction)() const;
+    static void SetHashAlgo();
+
     int32_t nVersion;
     uint256 hashPrevBlock;
     uint256 hashMerkleRoot;
@@ -60,7 +63,16 @@ public:
         return (nBits == 0);
     }
 
-    uint256 GetHash() const;
+    uint256 GetHash() const
+    {
+        return (this->*hashFunction)();
+    }
+
+    uint256 GetSHA256DHash() const;
+    static void SetSHA256DHash();
+
+    uint256 GetVerusHash() const;
+    static void SetVerusHash();
 
     int64_t GetBlockTime() const
     {

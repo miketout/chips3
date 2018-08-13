@@ -287,7 +287,13 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha256.cpp \
   crypto/sha256.h \
   crypto/sha512.cpp \
-  crypto/sha512.h
+  crypto/sha512.h \
+	crypto/haraka_portable.c \
+	crypto/haraka_portable.h \
+	crypto/haraka.c \
+	crypto/haraka.h \
+	crypto/verus_hash.cpp \
+	crypto/verus_hash.h
 
 if USE_ASM
 crypto_libbitcoin_crypto_a_SOURCES += crypto/sha256_sse4.cpp
