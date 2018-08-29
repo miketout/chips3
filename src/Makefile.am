@@ -32,6 +32,7 @@ LIBBITCOIN_UTIL=libbitcoin_util.a
 LIBBITCOIN_CRYPTO=crypto/libbitcoin_crypto.a
 LIBBITCOINQT=qt/libbitcoinqt.a
 LIBVERUS_CRYPTO=crypto/libverus_crypto.a
+LIBVERUS_PORTABLE_CRYPTO=crypto/libverus_portable_crypto.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 LIBCRYPTOCONDITIONS=cryptoconditions/libcryptoconditions_core.la
 
@@ -56,6 +57,7 @@ $(LIBCRYPTOCONDITIONS): $(wildcard cryptoconditions/src/*) $(wildcard cryptocond
 EXTRA_LIBRARIES += \
   $(LIBBITCOIN_CRYPTO) \
 	$(LIBVERUS_CRYPTO) \
+	$(LIBVERUS_PORTABLE_CRYPTO) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_CONSENSUS) \
@@ -444,6 +446,7 @@ chipsd_LDADD = \
   $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
 	$(LIBVERUS_CRYPTO) \
+	$(LIBVERUS_PORTABLE_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
@@ -467,7 +470,8 @@ chips_cli_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO) \
-	$(LIBVERUS_CRYPTO)
+	$(LIBVERUS_CRYPTO) \
+	$(LIBVERUS_PORTABLE_CRYPTO)
 
 chips_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
@@ -489,6 +493,7 @@ chips_tx_LDADD = \
   $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
 	$(LIBVERUS_CRYPTO) \
+	$(LIBVERUS_PORTABLE_CRYPTO) \
   $(LIBSECP256K1) \
   $(LIBCRYPTOCONDITIONS)
 
