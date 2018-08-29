@@ -297,9 +297,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha256.h \
   crypto/sha512.cpp \
   crypto/sha512.h \
-	crypto/haraka_portable.c \
 	crypto/haraka_portable.h \
-	crypto/haraka.c \
 	crypto/haraka.h \
 	crypto/verus_hash.cpp \
 	crypto/verus_hash.h
@@ -308,12 +306,17 @@ if USE_ASM
 crypto_libbitcoin_crypto_a_SOURCES += crypto/sha256_sse4.cpp
 endif
 
-# Verus hash specific library
-crypto_libverus_crypto_a_CPPFLAGS = -O3 -Wint-conversion -march=native -funroll-loops -fomit-frame-pointer -fPIC $(AM_CPPFLAGS)
-crypto_libverus_crypto_a_CXXFLAGS = -O3 -Wint-conversion -march=native -funroll-loops -fomit-frame-pointer -fPIC $(AM_CXXFLAGS)
+# Verus hash specific library - optimized
+crypto_libverus_crypto_a_CPPFLAGS = -O3 -Wint-conversion -march=x86-64 -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -maes -g -funroll-loops -fomit-frame-pointer -fPIC $(AM_CPPFLAGS)
+crypto_libverus_crypto_a_CXXFLAGS = -O3 -Wint-conversion -march=x86-64 -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -maes -g -funroll-loops -fomit-frame-pointer -fPIC $(AM_CXXFLAGS)
 crypto_libverus_crypto_a_SOURCES = \
   crypto/haraka.h \
-  crypto/haraka.c \
+  crypto/haraka.c
+
+# Verus hash specific library - portable
+crypto_libverus_portable_crypto_a_CPPFLAGS = -O3 -Wint-conversion -march=x86-64 -g -funroll-loops -fomit-frame-pointer -fPIC $(AM_CPPFLAGS)
+crypto_libverus_portable_crypto_a_CXXFLAGS = -O3 -Wint-conversion -march=x86-64 -g -funroll-loops -fomit-frame-pointer -fPIC $(AM_CXXFLAGS)
+crypto_libverus_portable_crypto_a_SOURCES = \
   crypto/haraka_portable.h \
   crypto/haraka_portable.c
 

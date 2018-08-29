@@ -22,7 +22,7 @@ class CBlockHeader
 public:
     // header
     static uint256 (CBlockHeader::*hashFunction)() const;
-    static void SetHashAlgo();
+    static const int32_t CURRENT_VERSION=0;
 
     int32_t nVersion;
     uint256 hashPrevBlock;
