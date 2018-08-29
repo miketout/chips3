@@ -76,7 +76,7 @@ public:
     int nType;
     int nVersion;
 
-    CVerusHashWriter(int nTypeIn, int nVersionIn) : nType(nTypeIn), nVersion(nVersionIn), state() { }
+    CVerusHashWriter(int nTypeIn, int nVersionIn) : state(), nType(nTypeIn), nVersion(nVersionIn) { }
     void Reset() { state.Reset(); }
 
     CVerusHashWriter& write(const char *pch, size_t size) {
@@ -97,7 +97,7 @@ public:
     template<typename T>
     CVerusHashWriter& operator<<(const T& obj) {
         // Serialize to this stream
-        ::Serialize(*this, obj, nType, nVersion);
+        ::Serialize(*this, obj);
         return (*this);
     }
 };
