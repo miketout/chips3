@@ -108,9 +108,6 @@ BITCOIN_CORE_H = \
   consensus/tx_verify.h \
   core_io.h \
   core_memusage.h \
-	crypto/haraka.h \
-  crypto/haraka_portable.h \
-  crypto/verus_hash.h \
   cuckoocache.h \
   fs.h \
   httprpc.h \
@@ -216,7 +213,6 @@ libbitcoin_server_a_SOURCES = \
 	crypto/haraka.h \
   crypto/haraka_portable.h \
   crypto/verus_hash.h \
-  crypto/verus_hash.cpp \
   consensus/tx_verify.cpp \
   httprpc.cpp \
   httpserver.cpp \
@@ -248,6 +244,7 @@ libbitcoin_server_a_SOURCES = \
   validation.cpp \
   validationinterface.cpp \
   versionbits.cpp \
+  crypto/verus_hash.cpp \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
@@ -265,6 +262,9 @@ endif
 libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_wallet_a_SOURCES = \
+	crypto/haraka.h \
+  crypto/haraka_portable.h \
+  crypto/verus_hash.h \
   wallet/crypter.cpp \
   wallet/db.cpp \
   wallet/feebumper.cpp \
@@ -301,7 +301,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha512.h \
 	crypto/haraka_portable.h \
 	crypto/haraka.h \
-	crypto/verus_hash.cpp \
+  crypto/verus_hash.cpp \
 	crypto/verus_hash.h
 
 if USE_ASM
@@ -333,6 +333,10 @@ libbitcoin_consensus_a_SOURCES = \
   consensus/merkle.h \
   consensus/params.h \
   consensus/validation.h \
+	crypto/haraka.h \
+  crypto/haraka_portable.h \
+  crypto/verus_hash.h \
+  crypto/verus_hash.cpp \
   hash.cpp \
   hash.h \
   prevector.h \
