@@ -244,7 +244,6 @@ libbitcoin_server_a_SOURCES = \
   validation.cpp \
   validationinterface.cpp \
   versionbits.cpp \
-  crypto/verus_hash.cpp \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
@@ -301,7 +300,6 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha512.h \
 	crypto/haraka_portable.h \
 	crypto/haraka.h \
-  crypto/verus_hash.cpp \
 	crypto/verus_hash.h
 
 if USE_ASM
@@ -376,7 +374,6 @@ libbitcoin_common_a_SOURCES = \
 	crypto/haraka.h \
   crypto/haraka_portable.h \
   crypto/verus_hash.h \
-  crypto/verus_hash.cpp \
   key.cpp \
   key_io.cpp \
   keystore.cpp \
